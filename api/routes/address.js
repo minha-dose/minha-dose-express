@@ -23,4 +23,17 @@ router.get("/users/:userId", async (req, res) => {
     }catch(error){
         return res.status(500).send({error: error.message});
     }
-})
+});
+
+router.get("/ubs/:ubsId", async (req, res) => {
+    const { ubsId } = req.params;
+    try{
+        const address = await req.context.models.Address.findeAddressByUbsId(ubsId);
+        if(!address){
+            return res.status(404).send({message: "Address not found."});
+        }
+        return res.send(address);
+    }catch(error){
+        return res.status(500).send({error: error.message});
+    }
+});

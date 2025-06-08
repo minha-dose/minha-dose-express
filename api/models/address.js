@@ -37,6 +37,7 @@ const getAddressModel = (sequelize, { DataTypes }) => {
 
     Address.associate = (models) => {
         Address.belongsTo(models.User);
+        Address.belongsTo(models.Ubs);
     };
 
     Address.findById = async function(id) {
@@ -50,6 +51,12 @@ const getAddressModel = (sequelize, { DataTypes }) => {
     Address.findAddressByUserId = async function(userId){
         return await this.findOne({
             where: { userId }
+        });
+    }
+
+    Address.findAddressByUbsId = async function(ubsId){
+        return await this.findOne({
+            where: { ubsId }
         });
     }
 

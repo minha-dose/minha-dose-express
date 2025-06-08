@@ -27,13 +27,13 @@ app.use("/api/v1/ubs", routes.ubs);
 app.use("/api/v1/vaccin", routes.vaccin);
 app.use("/api/v1/vaccincard", routes.vaccincard);
 
-//Conexão com o banco (descomentar quando o banco for criado):
-// sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
-//   app.listen(port, () => { console.log(`Servidor rodando na porta ${port}`); });
-// })
-//   .catch((err) => {
-//     console.error("Erro ao conectar com o banco de dados:", err);
-//   });
+//Conexão com o banco de dados:
+sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
+  app.listen(port, () => { console.log(`Servidor rodando na porta ${port}`); });
+})
+  .catch((err) => {
+    console.error("Erro ao conectar com o banco de dados:", err);
+  });
 
 //Base para teste de servidor on:
 app.get('/', (req, res) => {

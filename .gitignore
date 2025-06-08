@@ -1,2 +1,2 @@
 ## Arquivos que não devem subir para o git
-#.env
+.env

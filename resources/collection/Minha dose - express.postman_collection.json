@@ -69,6 +69,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getAddressByUbsId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/address/ubs/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"ubs",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
