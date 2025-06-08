@@ -92,6 +92,155 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Ubs",
+			"item": [
+				{
+					"name": "getAllUbs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/ubs/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ubs",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUbsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/ubs/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ubs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUbsByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/ubs?ubsName=Lessa de Andrade",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ubs"
+							],
+							"query": [
+								{
+									"key": "ubsName",
+									"value": "Lessa de Andrade"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUbs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ubsName\": \"UBS Lessa de Andrade\",\r\n  \"address\": {\r\n    \"street\": \"Estrada dos Remédios\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Madalena\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"04567-000\",\r\n    \"extraInfo\": \"n. 187\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"(81) 99999-9999\",\r\n    \"email\": \"contato@lessadeandrade.pe.gov.br\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/ubs",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ubs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUbs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ubsName\": \"UBS Lessa de Andrade\",\r\n  \"address\": {\r\n    \"street\": \"Estrada dos Remédios\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Madalena\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"04567-000\",\r\n    \"extraInfo\": \"n. 89\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"(81) 99999-9999\",\r\n    \"email\": \"contato@lessadeandrade.pe.gov.br\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/ubs",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ubs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUbs",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/ubs/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ubs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [

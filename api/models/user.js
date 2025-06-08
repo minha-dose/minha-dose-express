@@ -5,7 +5,7 @@ const getUserModel = (sequilize, { DataTypes }) => {
 
     User.associate = (models) => {
         User.hasOne(models.Address, {
-            foreignKey: "personId",
+            foreignKey: "userId",
             onDelete: "CASCADE",
         });
     }
