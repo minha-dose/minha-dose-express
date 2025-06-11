@@ -62,7 +62,7 @@ const getUserModel = (sequelize, { DataTypes }) => {
         });
     };
 
-    User.createUser = async function (data) {
+    User.createUser = async function (data, models) {
         return await this.create(data, {
             include: [models.Address, models.Contact],
         });
