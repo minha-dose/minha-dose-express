@@ -1,0 +1,40 @@
+import { Sequelize } from "sequelize";
+
+import getUserModel from "./user";
+import getContactModel from "./contact";
+import getAddressModel from "./address";
+import getVaccinModel from "./vaccin";
+import getVaccinCardModel from "./vaccincard";
+import getUbsModel from "./ubs";
+import getUbsVaccinModel from "./ubsVaccin"
+
+const sequelize = new Sequelize(process.env.DB_URL, {
+    dialect: "postgres",
+    protocol: "postgres",
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false,
+        },
+    },
+    dialectModule: require("pg"),
+})
+
+const models = {
+    User: getUserModel(sequelize, Sequelize),
+    Ubs: getUbsModel(sequelize, Sequelize),
+    Address: getAddressModel(sequelize, Sequelize),
+    Contact: getContactModel(sequelize, Sequelize),
+    Vaccin: getVaccinModel(sequelize, Sequelize),
+    VaccinCard: getVaccinCardModel(sequelize, Sequelize),
+    UbsVaccin: getUbsVaccinModel(sequelize, Sequelize),
+}
+
+Object.keys(models).forEach((key) => {
+    if("associate" in models[key]) {
+        models[key].associate(models);
+    }
+});
+
+export { sequelize };
+export default models;

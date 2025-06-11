@@ -12,16 +12,15 @@ router.get("/", async(req, res) => {
     return res.send(allUbs);
 });
 
-Ubs.createUbs = async function (data) {
-    const { Address, Contact, Vaccin } = this.models;
-
-    return await this.create(data, {
-        include: [
-            { model: Address },
-            { model: Contact },
-        ],
-    });
-};
+router.post("/", async (req, res) => {
+    try {
+        const novaUbs = await req.context.models.Ubs.createUbs(req.body, req.context.models);
+        res.status(201).json(novaUbs);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erro ao criar UBS" });
+    }
+});
 
 router.put("/:ubsId", async (req, res) => {
     try{
@@ -57,3 +56,5 @@ router.get("/search", async (req, res) => {
     }
     return res.send(results);
 });
+
+export default router;

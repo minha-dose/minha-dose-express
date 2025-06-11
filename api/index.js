@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import cors from "cors";
 import express from "express"
-import models, { sequilize } from "./models/index.js";
+import models, { sequelize } from "./models/index.js";
 import routes from "./routes/index.js"
 const app = express();
 const port = process.env.port ?? 3000;
@@ -36,10 +36,10 @@ sequelize.sync({ force: eraseDatabaseOnSync }).then(() => {
   });
 
 //Base para teste de servidor on:
-app.get('/', (req, res) => {
-  res.send("API ON!");
-});
+// app.get('/', (req, res) => {
+//   res.send("API ON!");
+// });
 
-app.listen(port, () => {
-  console.log("Listening on port " + port);
-});
+// app.listen(port, () => {
+//   console.log("Listening on port " + port);
+// });

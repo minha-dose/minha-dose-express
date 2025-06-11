@@ -1,4 +1,4 @@
-const getUbsModel = (sequilize, { DataTypes }) => {
+const getUbsModel = (sequelize, { DataTypes }) => {
     const Ubs = sequelize.define("ubs", {
         id: {
             type: DataTypes.INTEGER,
@@ -20,20 +20,22 @@ const getUbsModel = (sequilize, { DataTypes }) => {
             foreignKey: "ubsId",
             onDelete: "CASCADE",
         });
-        Ubs.hasMany(models.Vaccin, {
+        Ubs.belongsToMany(models.Vaccin, {
+            through: models.UbsVaccin,
             foreignKey: "ubsId",
-            onDelete: "CASCADE",
+            otherKey: "vaccinId",
         });
     };
+
     Ubs.findById = async function (id) {
         return await this.findByPk(id, {
-            include: ["Address", "Contact", "Vaccins"],
+            include: ["Address", "Contact", "Vaccin"],
         });
     };
 
     Ubs.findAllUbs = async function () {
         return await this.findAll({
-            include: ["Address", "Contact", "Vaccins"],
+            include: ["Address", "Contact", "Vaccin"],
         });
     };
 
