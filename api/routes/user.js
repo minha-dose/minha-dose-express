@@ -7,6 +7,10 @@ router.get("/:id", async (req, res) => {
     return res.send(user);
 });
 
+router.get("/", async(req, res) => {
+    const user = await req.context.models.User.findAllUsers();
+    return res.send(user);
+});
 
 router.post("/", async (req, res) => {
     try {

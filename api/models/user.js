@@ -51,6 +51,10 @@ const getUserModel = (sequelize, { DataTypes }) => {
         return await this.findByPk(id);
     };
 
+    User.findAllUsers = async function(){
+        return await this.findAll();
+    }
+
     User.findUserByEmail = async function(email){
         return await this.findOne({
             where: { email },
