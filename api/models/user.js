@@ -47,12 +47,17 @@ const getUserModel = (sequelize, { DataTypes }) => {
             onDelete: "CASCADE",
         });
     };
+    
     User.findById = async function (id) {
-        return await this.findByPk(id);
+        return await this.findByPk(id, {
+            include: [this.associations.contact, this.associations.address],
+        });
     };
 
     User.findAllUsers = async function(){
-        return await this.findAll();
+        return await this.findAll({
+            include: [this.associations.contact, this.associations.address]
+        });
     }
 
     User.findUserByEmail = async function(email){

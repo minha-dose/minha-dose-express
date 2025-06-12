@@ -8,7 +8,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-    const cards = await req.context.models.VaccinCard.finAllVaccinCards();
+    const cards = await req.context.models.VaccinCard.findAllVaccinCards();
     return res.send(cards);
 });
 
@@ -26,6 +26,17 @@ router.post("/", async (req, res) => {
     try {
         const card = await req.context.models.VaccinCard.createCard(req.body);
         return res.status(201).send(card);
+    } catch (error) {
+        return res.status(400).send({ error: error.message });
+    }
+});
+
+router.put("/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const updatedCard = await req.context.models.VaccinCard.updateCard(id, req.body);
+        return res.status(200).send(updatedCard);
     } catch (error) {
         return res.status(400).send({ error: error.message });
     }

@@ -29,19 +29,36 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
             foreignKey: "vaccinId",
             otherKey: "ubsId",
         });
-        Vaccin.hasMany(models.VaccinCard, {
+        Vaccin.belongsToMany(models.VaccinCard, {
+            through: models.CardVaccin,
             foreignKey: "vaccinId",
-            onDelete: "CASCADE",
+            otherKey: "vaccinCardId",
         });
     };
 
     Vaccin.findById = async function (id) {
-        return await this.findByPk(id);
+        return await this.findByPk(id, {
+            include: [this.associations.ubs],
+        });
     }
 
     Vaccin.findAllVaccins = async function () {
-        return await this.findAll();
+        return await this.findAll({
+            include: [this.associations.ubs],
+        });
     }
+
+    Vaccin.createVaccin = async function (data) {
+        const { ubsIds, ...vaccinData } = data;
+
+        const vaccin = await this.create(vaccinData);
+
+        if (ubsIds && Array.isArray(ubsIds)) {
+            await vaccin.addUbs(ubsIds);
+        }
+
+        return vaccin;
+    };
 
     Vaccin.findVaccinByName = async function (name) {
         return await this.findOne({
@@ -49,11 +66,18 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
             include: [
                 {
                     model: sequelize.models.Ubs,
-                    through: { attributes: []}
+                    through: { attributes: [] }
                 }
             ]
         });
     };
+
+    Vaccin.deleteById = async function (id) {
+        const vaccin = await this.findByPk(id);
+        if (!vaccin) return null;
+        await vaccin.destroy();
+        return vaccin;
+    }
 
     return Vaccin;
 }

@@ -10,7 +10,7 @@ const getUbsModel = (sequelize, { DataTypes }) => {
             allowNull: false,
         },
     });
-
+ 
     Ubs.associate = (models) => {
         Ubs.hasOne(models.Address, {
             foreignKey: "ubsId",
@@ -26,22 +26,22 @@ const getUbsModel = (sequelize, { DataTypes }) => {
             otherKey: "vaccinId",
         });
     };
-
+ 
     Ubs.findById = async function (id) {
         return await this.findByPk(id, {
-            include: ["Address", "Contact", "Vaccin"],
+            include: [this.associations.contact, this.associations.address, this.associations.vaccins],
         });
     };
-
+ 
     Ubs.findAllUbs = async function () {
         return await this.findAll({
-            include: ["Address", "Contact", "Vaccin"],
+            include: [this.associations.contact, this.associations.address]
         });
-    };
-
+    }
+ 
     Ubs.createUbs = async function (data, models) {
         const { Address, Contact } = models;
-
+ 
         return await this.create(data, {
             include: [
                 { model: Address },
@@ -49,14 +49,14 @@ const getUbsModel = (sequelize, { DataTypes }) => {
             ],
         });
     };
-
-    Ubs.updateUbs = async function (id, data) {
+ 
+    Ubs.updateUbs = async function (id, data, models) {
         const ubs = await this.findByPk(id);
         if (!ubs) return null;
-
+ 
         await ubs.update(data);
         const { contact, address } = data;
-
+ 
         if (contact) {
             const existingContact = await models.Contact.findOne({ where: { ubsId: id } });
             if (existingContact) {
@@ -65,7 +65,7 @@ const getUbsModel = (sequelize, { DataTypes }) => {
                 await models.Contact.create({ ...contact, ubsId: id });
             }
         }
-
+ 
         if (address) {
             const existingAddress = await models.Address.findOne({ where: { ubsId: id } });
             if (existingAddress) {
@@ -74,30 +74,42 @@ const getUbsModel = (sequelize, { DataTypes }) => {
                 await models.Address.create({ ...address, ubsId: id });
             }
         }
+ 
         return await this.findById(id);
     };
-
+ 
     Ubs.deleteById = async function (id) {
         const ubs = await this.findByPk(id);
         if (!ubs) return null;
         await ubs.destroy();
         return ubs;
     };
-
-    Ubs.findByName = async function(ubsName){
+ 
+    Ubs.findByName = async function (ubsName) {
         const { Op } = sequelize.Sequelize;
-        const result = await this.findAll({
+        return await this.findAll({
             where: {
                 ubsName: {
-                    [Op.iLike]: `%${ubsName}`
+                    [Op.iLike]: `%${ubsName}%`
                 }
             },
-            include: ["Address","Contact"]
+            include: [
+                { model: models.Address },
+                { model: models.Contact }
+            ]
         });
-        return result;
     };
-
+ 
+    Ubs.findVaccinByUbsId = async function(ubsId){
+        const ubs = await this.findByPk(ubsId, {
+            include: [this.associations.vaccins]
+        });
+ 
+        if (!ubs) return null;
+        return ubs.vaccins;
+    }
+ 
     return Ubs;
 };
-
+ 
 module.exports = getUbsModel;

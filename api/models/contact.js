@@ -18,33 +18,33 @@ const getContactModel = (sequelize, { DataTypes }) => {
             allowNull: false,
         }
     });
-
+ 
     Contact.associate = (models) => {
         Contact.belongsTo(models.User);
         Contact.belongsTo(models.Ubs);
     };
-
+ 
     Contact.findById = async function (id) {
         return await this.findByPk(id);
     };
-
+ 
     Contact.findAllContacts = async function () {
         return await this.findAll(); // Sem include
     };
-
+ 
     Contact.findContactByUserId = async function(userId){
         return await this.findOne({
             where: { userId }
         });
     }
-
+ 
     Contact.findContactByUbsId = async function(ubsId){
         return await this.findOne({
             where: { ubsId }
         });
     }
-
+ 
     return Contact;
 }
-
+ 
 module.exports = getContactModel;

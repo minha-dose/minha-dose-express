@@ -34,33 +34,33 @@ const getAddressModel = (sequelize, { DataTypes }) => {
             allowNull: true,
         }
     });
-
+ 
     Address.associate = (models) => {
         Address.belongsTo(models.User);
         Address.belongsTo(models.Ubs);
     };
-
+ 
     Address.findById = async function(id) {
         return await this.findByPk(id);
     };
-
+ 
     Address.findAllAddresses = async function(){
         return await this.findAll();
     }
-
+ 
     Address.findAddressByUserId = async function(userId){
         return await this.findOne({
             where: { userId }
         });
     }
-
+ 
     Address.findAddressByUbsId = async function(ubsId){
         return await this.findOne({
             where: { ubsId }
         });
     }
-
+ 
     return Address;
 }
-
+ 
 module.exports = getAddressModel;
