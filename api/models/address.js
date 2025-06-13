@@ -63,4 +63,4 @@ const getAddressModel = (sequelize, { DataTypes }) => {
     return Address;
 }
  
-module.exports = getAddressModel;
+export default getAddressModel;

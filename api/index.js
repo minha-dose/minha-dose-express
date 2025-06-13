@@ -36,3 +36,5 @@ sequelize.sync()
     app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
   })
   .catch(err => console.error('Erro ao conectar DB:', err));
+
+  module.exports = app;

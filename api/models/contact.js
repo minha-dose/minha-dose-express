@@ -47,4 +47,4 @@ const getContactModel = (sequelize, { DataTypes }) => {
     return Contact;
 }
  
-module.exports = getContactModel;
+export default getContactModel;

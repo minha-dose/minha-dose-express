@@ -64,4 +64,4 @@ const getVaccinCardModel = (sequelize, { DataTypes }) => {
     return VaccinCard;
 }
 
-module.exports = getVaccinCardModel;
+export default getVaccinCardModel;

@@ -112,4 +112,4 @@ const getUbsModel = (sequelize, { DataTypes }) => {
     return Ubs;
 };
  
-module.exports = getUbsModel;
+export default getUbsModel;

@@ -90,4 +90,4 @@ const getUserModel = (sequelize, { DataTypes }) => {
     return User;
 };
 
-module.exports = getUserModel;
+export default getUserModel;

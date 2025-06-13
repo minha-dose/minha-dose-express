@@ -82,4 +82,4 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
     return Vaccin;
 }
 
-module.exports = getVaccinModel;
+export default getVaccinModel;
