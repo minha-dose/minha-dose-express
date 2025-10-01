@@ -34,6 +34,11 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
             foreignKey: "vaccinId",
             otherKey: "vaccinCardId",
         });
+
+        Vaccin.hasMany(models.Appointment, {
+            foreignKey: "vaccinId",
+            onDelete: "CASCADE"
+        })
     };
 
     Vaccin.findById = async function (id) {

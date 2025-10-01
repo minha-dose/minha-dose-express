@@ -29,7 +29,9 @@ app.use("/api/v1/contact", routes.contact);
 app.use("/api/v1/ubs", routes.ubs);
 app.use("/api/v1/vaccin", routes.vaccin);
 app.use("/api/v1/vaccincard", routes.vaccincard);
+app.use("/api/v1/appointment", routes.appointment);
 
+//sequelize.sync({alter:true})
 sequelize.sync()
   .then(() => {
     console.log('DB sincronizado. Servidor iniciando...');

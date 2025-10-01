@@ -5,6 +5,10 @@ const getUserModel = (sequelize, { DataTypes }) => {
             primaryKey: true,
             autoIncrement: true,
         },
+        cpf: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -46,13 +50,28 @@ const getUserModel = (sequelize, { DataTypes }) => {
             foreignKey: "userId",
             onDelete: "CASCADE",
         });
+
+        User.hasMany(models.Appointment, {
+            foreignKey: "userId",
+            onDelete: "CASCADE"
+        });
     };
     
+    User.findUserByCpf = async function(cpf){
+        console.log("Método findUserByCpf chamado com:", cpf);
+        return await this.findOne({
+            where: { cpf },
+            attributes: ["id","email","password"],
+        })
+    }
+
     User.findById = async function (id) {
         return await this.findByPk(id, {
             include: [this.associations.contact, this.associations.address],
         });
     };
+
+    
 
     User.findAllUsers = async function(){
         return await this.findAll({

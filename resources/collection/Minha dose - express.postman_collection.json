@@ -55,7 +55,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/api/v1/address/users/1",
+							"raw": "{{domain}}/api/v1/address/users/2",
 							"host": [
 								"{{domain}}"
 							],
@@ -64,7 +64,7 @@
 								"v1",
 								"address",
 								"users",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -142,7 +142,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/api/v1/ubs?ubsName=Lessa de Andrade",
+							"raw": "{{domain}}/api/v1/ubs?ubsName=UBS Lessa de Andrade",
 							"host": [
 								"{{domain}}"
 							],
@@ -154,7 +154,7 @@
 							"query": [
 								{
 									"key": "ubsName",
-									"value": "Lessa de Andrade"
+									"value": "UBS Lessa de Andrade"
 								}
 							]
 						}
@@ -235,6 +235,729 @@
 								"v1",
 								"ubs",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getVaccinsByUbs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ubsName\": \"UBS Lessa de Andrade\",\r\n  \"address\": {\r\n    \"street\": \"Estrada dos Remédios\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Madalena\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"04567-000\",\r\n    \"extraInfo\": \"n. 89\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"(81) 99999-9999\",\r\n    \"email\": \"contato@lessadeandrade.pe.gov.br\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/ubs/1/vaccins",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ubs",
+								"1",
+								"vaccins"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/users/5",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByCpf",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/users/cpf?cpf=11555690408",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"cpf"
+							],
+							"query": [
+								{
+									"key": "cpf",
+									"value": "11555690408"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/users/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Joyce Emanuelli barbosa Gomes\",\r\n  \"cpf\": \"11555690408\",\r\n  \"password\": \"joyce\",\r\n  \"email\": \"joyce@email.com\",\r\n  \"age\": 27,\r\n  \"role\": \"user\",\r\n  \"address\": {\r\n    \"street\": \"Rua do Passado\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Graças\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"530030004\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"81999999999\",\r\n    \"email\": \"joyce@email.com\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/users/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/users/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByEmail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/users/email?email=joyce@email.com",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"email"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "joyce@email.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Júlia Gomes\",\r\n  \"password\": \"julia\",\r\n  \"email\": \"julia@email.com\",\r\n  \"age\": 29,\r\n  \"role\": \"user\",\r\n  \"address\": {\r\n    \"street\": \"Rua do Passado\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Graças\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"530030004\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"81999999999\",\r\n    \"email\": \"julia@email.com\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/users/3",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact",
+			"item": [
+				{
+					"name": "getAllContacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/contact/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"contact",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getContactById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/contact/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"contact",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getContactByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/contact/users/2",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"contact",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getContactByUbsId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/contact/users/2",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"contact",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vaccin",
+			"item": [
+				{
+					"name": "getAllVaccins",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ubsName\": \"UBS Lessa de Andrade\",\r\n  \"address\": {\r\n    \"street\": \"Estrada dos Remédios\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Madalena\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"04567-000\",\r\n    \"extraInfo\": \"n. 89\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"(81) 99999-9999\",\r\n    \"email\": \"contato@lessadeandrade.pe.gov.br\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccin/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccin",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getVaccinById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ubsName\": \"UBS Lessa de Andrade\",\r\n  \"address\": {\r\n    \"street\": \"Estrada dos Remédios\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Madalena\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"04567-000\",\r\n    \"extraInfo\": \"n. 89\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"(81) 99999-9999\",\r\n    \"email\": \"contato@lessadeandrade.pe.gov.br\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccin/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccin",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createVaccin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"HPV\",\r\n  \"manufacturer\": \"Fiocruz\",\r\n  \"batch\": \"012025\",\r\n  \"expiration\": \"2025-12-31\",\r\n  \"ubsIds\": [2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccin/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccin",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getVaccinByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccin?name=COVAC19",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccin"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "COVAC19"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteVaccin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ubsName\": \"UBS Lessa de Andrade\",\r\n  \"address\": {\r\n    \"street\": \"Estrada dos Remédios\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Madalena\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"04567-000\",\r\n    \"extraInfo\": \"n. 89\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"(81) 99999-9999\",\r\n    \"email\": \"contato@lessadeandrade.pe.gov.br\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccin/2",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccin",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "VaccinCard",
+			"item": [
+				{
+					"name": "getAllVaccinCards",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ubsName\": \"UBS Lessa de Andrade\",\r\n  \"address\": {\r\n    \"street\": \"Estrada dos Remédios\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Madalena\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"04567-000\",\r\n    \"extraInfo\": \"n. 89\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"(81) 99999-9999\",\r\n    \"email\": \"contato@lessadeandrade.pe.gov.br\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccincard/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccincard",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getVaccinCardById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ubsName\": \"UBS Lessa de Andrade\",\r\n  \"address\": {\r\n    \"street\": \"Estrada dos Remédios\",\r\n    \"city\": \"Recife\",\r\n    \"district\": \"PE\",\r\n    \"neighborhood\": \"Madalena\",\r\n    \"country\": \"Brasil\",\r\n    \"zipCode\": \"04567-000\",\r\n    \"extraInfo\": \"n. 89\"\r\n  },\r\n  \"contact\": {\r\n    \"phone\": \"(81) 99999-9999\",\r\n    \"email\": \"contato@lessadeandrade.pe.gov.br\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccincard/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccincard",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getVaccinCardByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccincard/user/2",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccincard",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateVaccinCard",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 2, \r\n  \"vaccinIds\": [5, 6, 7] \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/vaccincard/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccincard",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "createAppointment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1,\r\n  \"ubsId\": 1,\r\n  \"vaccinId\": 1,\r\n  \"date\": \"2025-10-15T09:00:00\",\r\n  \"status\": \"scheduled\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/appointment",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAppointments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/appointment",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAppointment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/appointment/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAppointmentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/appointment/3",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointment",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAppointmentByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/appointment/users/2",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointment",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStatus",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"completed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/appointment/3/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"appointment",
+								"3",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDate",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2025-11-01T14:00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/appointment/3/date",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"appointment",
+								"3",
+								"date"
 							]
 						}
 					},

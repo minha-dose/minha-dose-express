@@ -20,11 +20,31 @@ router.get('/email', async (req, res) => {
     }
 });
 
+router.get('/cpf', async (req, res) => {
+    try {
+        const { cpf } = req.query;
+        if (!cpf) {
+            return res.status(400).json({ error: 'Cpf é obrigatório' });
+        }
+
+        const user = await req.context.models.User.findUserByCpf(cpf);
+
+        if (!user) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 router.get("/:id", async (req, res) => {
     const user = await req.context.models.User.findById(req.params.id);
     if (!user) return res.status(404).send({ message: "User not found." });
     return res.send(user);
 });
+
 
 router.get("/", async (req, res) => {
     const user = await req.context.models.User.findAllUsers();

@@ -25,6 +25,11 @@ const getUbsModel = (sequelize, { DataTypes }) => {
             foreignKey: "ubsId",
             otherKey: "vaccinId",
         });
+
+        Ubs.hasMany(models.Appointment, {
+            foreignKey: "ubsId",
+            onDelete: "CASCADE"
+        })
     };
  
     Ubs.findById = async function (id) {
