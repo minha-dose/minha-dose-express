@@ -61,14 +61,19 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-    try {
-        const user = await req.context.models.User.updateUser(req.params.id, req.body);
-        if (!user) return res.status(404).send({ message: "User not found." });
-        return res.send(user);
-    } catch (error) {
-        return res.status(400).send({ error: error.message });
-    }
+  try {
+    const user = await req.context.models.User.updateUser(
+      req.params.id,
+      req.body,
+      req.context.models
+    );
+    if (!user) return res.status(404).send({ message: "User not found." });
+    return res.send(user);
+  } catch (error) {
+    return res.status(400).send({ error: error.message });
+  }
 });
+
 
 router.delete("/:id", async (req, res) => {
     try {

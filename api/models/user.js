@@ -39,45 +39,47 @@ const getUserModel = (sequelize, { DataTypes }) => {
         User.hasOne(models.Address, {
             foreignKey: "userId",
             onDelete: "CASCADE",
+            as: 'address',
         });
 
         User.hasOne(models.Contact, {
             foreignKey: "userId",
             onDelete: "CASCADE",
+            as: 'contact',
         });
 
         User.hasOne(models.VaccinCard, {
             foreignKey: "userId",
             onDelete: "CASCADE",
+            as: 'vaccinCard',
         });
 
         User.hasMany(models.Appointment, {
             foreignKey: "userId",
-            onDelete: "CASCADE"
+            onDelete: "CASCADE",
+            as: 'appointments',
         });
     };
-    
+
     User.findUserByCpf = async function(cpf){
         console.log("Método findUserByCpf chamado com:", cpf);
         return await this.findOne({
             where: { cpf },
             attributes: ["id","email","password"],
-        })
-    }
-
-    User.findById = async function (id) {
-        return await this.findByPk(id, {
-            include: [this.associations.contact, this.associations.address],
         });
     };
 
-    
+    User.findById = async function (id) {
+        return await this.findByPk(id, {
+            include: ['contact', 'address'],
+        });
+    };
 
     User.findAllUsers = async function(){
         return await this.findAll({
-            include: [this.associations.contact, this.associations.address]
+            include: ['contact', 'address'],
         });
-    }
+    };
 
     User.findUserByEmail = async function(email){
         return await this.findOne({
@@ -93,10 +95,25 @@ const getUserModel = (sequelize, { DataTypes }) => {
     };
 
     User.updateUser = async function (id, data) {
-        const user = await this.findByPk(id);
+        const user = await this.findByPk(id, {
+            include: ['contact', 'address'],
+        });
+
         if (!user) return null;
+
         await user.update(data);
-        return user;
+
+        if(data.address && user.address){
+            await user.address.update(data.address);
+        }
+
+        if(data.contact && user.contact){
+            await user.contact.update(data.contact);
+        }
+
+        return await this.findByPk(id, {
+            include: ['contact', 'address'],
+        });
     };
 
     User.deleteById = async function (id) {
