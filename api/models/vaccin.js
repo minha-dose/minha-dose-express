@@ -14,13 +14,30 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
             allowNull: false,
         },
         batch: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING, 
             allowNull: false,
         },
         expiration: {
             type: DataTypes.DATE,
             allowNull: false,
         },
+        dataFabricacao: {
+            type: DataTypes.DATE, 
+            allowNull: true,
+        },
+        quantidadeRecebida: {
+            type: DataTypes.INTEGER, 
+            allowNull: false,
+        },
+        dataRecebimento: {
+            type: DataTypes.DATE, 
+            allowNull: true,
+        },
+        ubsId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        }
+
     });
 
     Vaccin.associate = (models) => {
@@ -30,7 +47,7 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
             otherKey: "ubsId",
         });
         Vaccin.belongsToMany(models.VaccinCard, {
-            through: models.CardVaccin,
+            through: models.VaccinCard,
             foreignKey: "vaccinId",
             otherKey: "vaccinCardId",
         });
@@ -54,13 +71,13 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
     }
 
     Vaccin.createVaccin = async function (data) {
-        const { ubsIds, ...vaccinData } = data;
+        const { ubsId, ...vaccinData } = data; 
 
         const vaccin = await this.create(vaccinData);
 
-        if (ubsIds && Array.isArray(ubsIds)) {
-            await vaccin.addUbs(ubsIds);
-        }
+        if (ubsId) {
+            await vaccin.addUbs([ubsId]); 
+        } 
 
         return vaccin;
     };
