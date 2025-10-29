@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+
 const getUserModel = (sequelize, { DataTypes }) => {
     const User = sequelize.define("user", {
         id: {
@@ -34,6 +36,24 @@ const getUserModel = (sequelize, { DataTypes }) => {
             allowNull: false,
         }
     });
+
+    User.addHook("beforeCreate", async (user) => {
+        if (user.password) {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(user.password, salt);
+        }
+    });
+
+    User.addHook("beforeUpdate", async (user) => {
+        if (user.changed("password")) {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(user.password, salt);
+        }
+    });
+
+    User.prototype.comparePassword = async function (password) {
+        return await bcrypt.compare(password, this.password);
+    };
 
     User.associate = (models) => {
         User.hasOne(models.Address, {
