@@ -61,58 +61,71 @@ const getUserModel = (sequelize, { DataTypes }) => {
         });
     };
 
-    User.findUserByCpf = async function(cpf){
+    User.findUserByCpf = async function (cpf) {
         console.log("Método findUserByCpf chamado com:", cpf);
         return await this.findOne({
             where: { cpf },
-            attributes: ["id","email","password"],
+            attributes: { exclude: ['password'] },
+            attributes: ["id", "email"],
         });
     };
 
     User.findById = async function (id) {
         return await this.findByPk(id, {
+            attributes: { exclude: ['password'] },
             include: ['contact', 'address'],
         });
     };
 
-    User.findAllUsers = async function(){
+    User.findAllUsers = async function () {
         return await this.findAll({
+            attributes: { exclude: ['password'] },
             include: ['contact', 'address'],
         });
     };
 
-    User.findUserByEmail = async function(email){
+    User.findUserByEmail = async function (email) {
         return await this.findOne({
             where: { email },
-            attributes: ["id","email","password"],
+            attributes: { exclude: ['password'] },
+            attributes: ["id", "email"],
         });
     };
 
     User.createUser = async function (data, models) {
         return await this.create(data, {
-            include: [models.Address, models.Contact],
+            include: ['address', 'contact'],
         });
     };
 
-    User.updateUser = async function (id, data) {
+    User.updateUser = async function (id, data, models) {
         const user = await this.findByPk(id, {
-            include: ['contact', 'address'],
+            include: ['address', 'contact'],
         });
 
         if (!user) return null;
 
         await user.update(data);
 
-        if(data.address && user.address){
-            await user.address.update(data.address);
+        if (data.address) {
+            if (user.address) {
+                await models.Address.update(data.address, { where: { userId: id } });
+            } else {
+                await models.Address.create({ ...data.address, userId: id });
+            }
         }
 
-        if(data.contact && user.contact){
-            await user.contact.update(data.contact);
+        if (data.contact) {
+            if (user.contact) {
+                await models.Contact.update(data.contact, { where: { userId: id } });
+            } else {
+                await models.Contact.create({ ...data.contact, userId: id });
+            }
         }
 
         return await this.findByPk(id, {
             include: ['contact', 'address'],
+            attributes: { exclude: ['password'] },
         });
     };
 
