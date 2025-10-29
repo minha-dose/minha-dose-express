@@ -107,8 +107,7 @@ const getUserModel = (sequelize, { DataTypes }) => {
     User.findUserByEmail = async function (email) {
         return await this.findOne({
             where: { email },
-            attributes: { exclude: ['password'] },
-            attributes: ["id", "email"],
+            attributes: ["id", "email", "password", "role"],
         });
     };
 

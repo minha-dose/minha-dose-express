@@ -30,6 +30,7 @@ app.use("/api/v1/ubs", routes.ubs);
 app.use("/api/v1/vaccin", routes.vaccin);
 app.use("/api/v1/vaccincard", routes.vaccincard);
 app.use("/api/v1/appointment", routes.appointment);
+app.use("/api/v1/auth", routes.auth);
 
 //sequelize.sync({alter:true})
 sequelize.sync()

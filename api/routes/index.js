@@ -5,6 +5,7 @@ import contact from "./contact";
 import vaccin from "./vaccin";
 import vaccincard from "./vaccincard";
 import appointment from "./appointment";
+import auth from "./auth";
  
 export default {
   address,
@@ -13,5 +14,6 @@ export default {
   contact,
   vaccin,
   vaccincard,
-  appointment
+  appointment,
+  auth
 };
