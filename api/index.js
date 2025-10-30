@@ -4,7 +4,7 @@ import express from 'express';
 import models, { sequelize } from './models/index.js';
 import routes from './routes/index.js';
 
-const port = process.env.PORT ?? 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors());
