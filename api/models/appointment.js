@@ -51,7 +51,6 @@ const getAppointmentModel = (sequelize, { DataTypes }) => {
         const startOfDay = new Date(`${date}T00:00:00.000Z`);
         const endOfDay = new Date(`${date}T23:59:59.999Z`);
 
-        // Gera horários de 20 em 20 minutos, das 09:00 até 16:00
         const times = [];
         for (let hour = 9; hour <= 16; hour++) {
             for (let minute = 0; minute < 60; minute += 20) {
@@ -61,7 +60,6 @@ const getAppointmentModel = (sequelize, { DataTypes }) => {
             }
         }
 
-        // Busca os agendamentos do dia
         const appointments = await this.findAll({
             where: {
                 ubsId,
@@ -72,7 +70,6 @@ const getAppointmentModel = (sequelize, { DataTypes }) => {
             raw: true,
         });
 
-        // Extrai as horas bloqueadas considerando o fuso de São Paulo
         const blocked = appointments.map(a => {
             const localTime = new Date(a.date).toLocaleTimeString("pt-BR", {
                 timeZone: "America/Sao_Paulo",
@@ -80,10 +77,9 @@ const getAppointmentModel = (sequelize, { DataTypes }) => {
                 minute: "2-digit",
                 hour12: false,
             });
-            return localTime; // formato "09:00", "09:20", etc.
+            return localTime;
         });
-
-        // Filtra horários disponíveis
+        
         const free = times.filter(t => !blocked.includes(t));
 
         return free;
