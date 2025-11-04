@@ -31,6 +31,7 @@ app.use("/api/v1/vaccin", routes.vaccin);
 app.use("/api/v1/vaccincard", routes.vaccincard);
 app.use("/api/v1/appointment", routes.appointment);
 app.use("/api/v1/auth", routes.auth);
+app.use("/api/v1/passwordReset", routes.passwordReset);
 
 //sequelize.sync({alter:true})
 sequelize.sync()

@@ -6,6 +6,7 @@ import vaccin from "./vaccin";
 import vaccincard from "./vaccincard";
 import appointment from "./appointment";
 import auth from "./auth";
+import passwordReset from "./passwordReset"
  
 export default {
   address,
@@ -15,5 +16,6 @@ export default {
   vaccin,
   vaccincard,
   appointment,
-  auth
+  auth,
+  passwordReset,
 };

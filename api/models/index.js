@@ -9,6 +9,7 @@ import getUbsModel from "./ubs";
 import getUbsVaccinModel from "./ubsVaccin"
 import getCardVaccinModel from "./cardVaccin";
 import getAppointmentModel from "./appointment";
+import getPasswordResetModel from "./passwordReset";
  
 const sequelize = new Sequelize(process.env.DB_URL, {
     dialect: "postgres",
@@ -31,7 +32,8 @@ const models = {
     VaccinCard: getVaccinCardModel(sequelize, Sequelize),
     UbsVaccin: getUbsVaccinModel(sequelize, Sequelize),
     CardVaccin: getCardVaccinModel(sequelize, Sequelize),
-    Appointment: getAppointmentModel(sequelize, Sequelize)
+    Appointment: getAppointmentModel(sequelize, Sequelize),
+    PasswordReset: getPasswordResetModel(sequelize, Sequelize),
 }
  
 Object.keys(models).forEach((key) => {
