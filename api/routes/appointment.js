@@ -1,6 +1,19 @@
 import { Router } from "express";
 const router = Router();
 
+router.get("/availableTime", async (req,res) => {
+    try{
+        const {date, ubsId} = req.query;
+        if(!date || !ubsId)
+            return res.status(400).json({error: "Parâmetros 'date' e 'ubsId' são obrigatórios"});
+
+        const freeTimes = await req.context.models.Appointment.getAvailableTimes(date, ubsId);
+        res.json({date, freeTimes});
+    }catch(error){
+        res.status(500).json({error: error.message});
+    }
+})
+
 router.get("/:id", async (req, res) => {
     try {
         const appointment = await req.context.models.Appointment.findById(req.params.id);
@@ -50,17 +63,6 @@ router.patch("/:id/status", async (req, res) => {
         return res.status(400).send({ error: error.message });
     }
 });
-
-router.patch("/:id/date", async (req, res) => {
-    try {
-        const updated = await req.context.models.Appointment.updateDate(req.params.id, req.body.date);
-        if (!updated) return res.status(404).send({ message: "Appointment not found." });
-        return res.send(updated);
-    } catch (error) {
-        return res.status(400).send({ error: error.message });
-    }
-});
-
 
 router.delete("/:id", async (req, res) => {
     try {
