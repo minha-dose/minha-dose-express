@@ -1,22 +1,22 @@
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 export async function sendResetEmail(email, code) {
-    const transporter = nodemailer.createTransport({
-        host: process.env.MAIL_HOST,
-        port: process.env.MAIL_PORT,
-        secure: process.env.MAIL_SECURE === "true",
-        auth: {
-            user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASS,
-        },
-    });
 
-    const mailOptions = {
-        from: `"Minha Dose" <${process.env.MAIL_USER}>`,
+    const msg = {
         to: email,
-        subject: "Recuperação de senha",
-        text: `Olá! Seu código de recuperação é: ${code}`,
+        from: process.env.MAIL_USER,
+        subject: 'Recuperação de senha',
+        text: `Olá! Seu código de recuperação é: ${code}`
     }
 
-    await transporter.sendMail(mailOptions);
+    sgMail
+        .send(msg)
+        .then(() => {
+            console.log('Email sent')
+        })
+        .catch((error) => {
+            console.error(error)
+        })
 }
