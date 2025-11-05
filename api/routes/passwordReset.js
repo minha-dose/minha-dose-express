@@ -16,7 +16,7 @@ router.post("/forgot-password", async (req, res) => {
         const expireAt = new Date(Date.now() + 10 * 60 * 1000); // expira em 10 min
 
         await req.context.models.PasswordReset.create({ email, code, expireAt });
-        await sendResetEmail(email, code);
+        //await sendResetEmail(email, code);
 
         res.json({ message: "Código de recuperação enviado para o e-mail informado." });
     } catch (error) {
