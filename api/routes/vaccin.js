@@ -1,18 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-router.get("/:id", async (req, res) => {
-    const vaccin = await req.context.models.Vaccin.findById(req.params.id);
-    if (!vaccin) return res.status(404).send({ message: "Vaccin not found." });
-    return res.send(vaccin);
-});
-
-router.get("/", async (req, res) => {
-    const vaccins = await req.context.models.Vaccin.findAllVaccins();
-    return res.send(vaccins);
-});
-
-router.get("/", async (req, res) => {
+router.get("/findByName/", async (req, res) => {
     try {
         const { name } = req.query;
 
@@ -30,6 +19,16 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/:id", async (req, res) => {
+    const vaccin = await req.context.models.Vaccin.findById(req.params.id);
+    if (!vaccin) return res.status(404).send({ message: "Vaccin not found." });
+    return res.send(vaccin);
+});
+
+router.get("/", async (req, res) => {
+    const vaccins = await req.context.models.Vaccin.findAllVaccins();
+    return res.send(vaccins);
+});
 
 router.post("/", async (req, res) => {
     try {

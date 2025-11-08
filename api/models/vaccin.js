@@ -1,3 +1,5 @@
+import { Op, fn, col, where } from "sequelize";
+
 const getVaccinModel = (sequelize, { DataTypes }) => {
     const Vaccin = sequelize.define("vaccin", {
         id: {
@@ -28,11 +30,13 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
             through: models.UbsVaccin,
             foreignKey: "vaccinId",
             otherKey: "ubsId",
+            as: "ubs",
         });
         Vaccin.belongsToMany(models.VaccinCard, {
             through: models.CardVaccin,
             foreignKey: "vaccinId",
             otherKey: "vaccinCardId",
+            as: "vaccinCards",
         });
 
         Vaccin.hasMany(models.Appointment, {
@@ -43,13 +47,13 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
 
     Vaccin.findById = async function (id) {
         return await this.findByPk(id, {
-            include: [this.associations.ubs],
+            include: [this.associations.ubs]
         });
     }
 
     Vaccin.findAllVaccins = async function () {
         return await this.findAll({
-            include: [this.associations.ubs],
+           include: [this.associations.ubs]
         });
     }
 
@@ -67,13 +71,8 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
 
     Vaccin.findVaccinByName = async function (name) {
         return await this.findOne({
-            where: { name },
-            include: [
-                {
-                    model: sequelize.models.Ubs,
-                    through: { attributes: [] }
-                }
-            ]
+           where: where(fn("LOWER", col("name")), fn("LOWER", name)),
+            include: [this.associations.ubs],
         });
     };
 

@@ -36,6 +36,22 @@ router.get('/:id/vaccins', async (req, res) => {
     }
 });
 
+router.get("/vaccin/:vaccinId", async (req, res) => {
+    try {
+        const { vaccinId } = req.params;
+        const ubsList = await req.context.models.Ubs.findByVaccinId(vaccinId);
+
+        if (!ubsList || ubsList.length === 0) {
+            return res.status(404).json({ message: "Nenhuma UBS encontrada para esta vacina" });
+        }
+
+        return res.status(200).json(ubsList);
+    } catch (error) {
+        console.error("Erro ao buscar UBS por ID de vacina:", error);
+        return res.status(500).json({ error: "Erro interno do servidor" });
+    }
+});
+
 router.post("/", async (req, res) => {
     try {
         const novaUbs = await req.context.models.Ubs.createUbs(req.body, req.context.models);
