@@ -1,5 +1,7 @@
-import { HF_TOKEN } from "@env"; // ou use diretamente se não tiver dotenv
+import dotenv from "dotenv";
+dotenv.config();
 
+const HF_TOKEN = process.env.HF_TOKEN;
 const HF_API_URL = "https://router.huggingface.co/v1/chat/completions";
 const MODEL = "meta-llama/Llama-3.1-8B-Instruct:novita";
 
