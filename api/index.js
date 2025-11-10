@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import models, { sequelize } from './models/index.js';
 import routes from './routes/index.js';
-import sendMessageToBot from "./services/chatService.js"
+import sendMessageToBot from "./services/chatServices.js"
 
 const port = process.env.PORT || 3000;
 const app = express();
