@@ -5,7 +5,7 @@ const HF_TOKEN = process.env.HF_TOKEN;
 const HF_API_URL = "https://router.huggingface.co/v1/chat/completions";
 const MODEL = "meta-llama/Llama-3.1-8B-Instruct:novita";
 
-export async function sendMessageToBot(userMessage) {
+async function sendMessageToBot(userMessage) {
   try {
     const response = await fetch(HF_API_URL, {
       method: "POST",
@@ -36,3 +36,5 @@ export async function sendMessageToBot(userMessage) {
     return "Erro de conexão com o servidor de IA.";
   }
 }
+
+export default sendMessageToBot;
