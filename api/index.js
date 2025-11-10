@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import models, { sequelize } from './models/index.js';
 import routes from './routes/index.js';
+import sendMessageToBot from "./services/chatService.js"
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -32,6 +33,21 @@ app.use("/api/v1/vaccincard", routes.vaccincard);
 app.use("/api/v1/appointment", routes.appointment);
 app.use("/api/v1/auth", routes.auth);
 app.use("/api/v1/passwordReset", routes.passwordReset);
+
+app.post("/api/v1/chat", async (req, res) => {
+  try {
+    const { message } = req.body;
+    if (!message) {
+      return res.status(400).json({ error: "Mensagem não fornecida" });
+    }
+
+    const botReply = await sendMessageToBot(message);
+    res.json({ reply: botReply });
+  } catch (error) {
+    console.error("Erro no endpoint /chat:", error);
+    res.status(500).json({ error: "Erro interno no servidor de IA" });
+  }
+});
 
 //sequelize.sync({alter:true})
 sequelize.sync()
