@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "description": "",
   "dependencies": {
     "@sendgrid/mail": "^8.1.6",
