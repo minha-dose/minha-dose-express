@@ -1,3 +1,5 @@
+import {Op} from "sequelize";
+
 const getUbsVaccinModel = (sequelize, { DataTypes }) => {
     const UbsVaccin = sequelize.define("UbsVaccin", {
         id: {
@@ -57,7 +59,12 @@ const getUbsVaccinModel = (sequelize, { DataTypes }) => {
 
     UbsVaccin.findVaccinByVaccinId = async function (vaccinId){
         return await this.findAll({
-            where: {vaccinId},
+            where: {
+                vaccinId,
+                quantity: {
+                    [Op.gt]:0
+                }
+            },
             include: [
                 {association: this.associations.vaccin},
                 {association: this.associations.ubs}
@@ -85,6 +92,15 @@ const getUbsVaccinModel = (sequelize, { DataTypes }) => {
         await stock.save();
         
         return stock;
+    }
+
+    UbsVaccin.deleteUbsVaccin = async function(id){
+        const ubsVaccin = await this.findByPk(id);
+        if(!ubsVaccin){
+            throw new Error("Vacina não encontrada");
+        }
+        await ubsVaccin.destroy();
+        return {message: "Vacina deletada da UBS com sucesso."}
     }
 
     return UbsVaccin;

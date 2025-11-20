@@ -40,4 +40,16 @@ router.patch("/decrement/:id", async (req, res) => {
     }
 });
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const deleted = await req.context.models.UbsVaccin.deleteUbsVaccin(req.params.id);
+        return res.status(200).send(deleted);
+    } catch (error) {
+        if (error.message === "UbsVaccin not found") {
+            return res.status(404).send({ message: error.message });
+        }
+        return res.status(400).send({ error: error.message });
+    }
+});
+
 export default router;
