@@ -6,7 +6,8 @@ import vaccin from "./vaccin";
 import vaccincard from "./vaccincard";
 import appointment from "./appointment";
 import auth from "./auth";
-import passwordReset from "./passwordReset"
+import passwordReset from "./passwordReset";
+import ubsVaccin from "./ubsVaccin";
  
 export default {
   address,
@@ -18,4 +19,5 @@ export default {
   appointment,
   auth,
   passwordReset,
+  ubsVaccin,
 };

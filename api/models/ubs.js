@@ -16,26 +16,24 @@ const getUbsModel = (sequelize, { DataTypes }) => {
             foreignKey: "ubsId",
             onDelete: "CASCADE",
         });
+
         Ubs.hasOne(models.Contact, {
             foreignKey: "ubsId",
             onDelete: "CASCADE",
-        });
-        Ubs.belongsToMany(models.Vaccin, {
-            through: models.UbsVaccin,
-            foreignKey: "ubsId",
-            otherKey: "vaccinId",
-            as: "vaccins",
         });
 
         Ubs.hasMany(models.Appointment, {
             foreignKey: "ubsId",
             onDelete: "CASCADE"
-        })
+        });
     };
 
     Ubs.findById = async function (id) {
         return await this.findByPk(id, {
-            include: [this.associations.contact, this.associations.address, this.associations.vaccins],
+            include: [
+                this.associations.contact,
+                this.associations.address,
+            ],
         });
     };
 
@@ -43,7 +41,7 @@ const getUbsModel = (sequelize, { DataTypes }) => {
         return await this.findAll({
             include: [this.associations.contact, this.associations.address]
         });
-    }
+    };
 
     Ubs.createUbs = async function (data, models) {
         const { Address, Contact } = models;
@@ -103,29 +101,6 @@ const getUbsModel = (sequelize, { DataTypes }) => {
                 { model: models.Address },
                 { model: models.Contact }
             ]
-        });
-    };
-
-    Ubs.findVaccinByUbsId = async function (ubsId) {
-        const ubs = await this.findByPk(ubsId, {
-            include: [this.associations.vaccins]
-        });
-
-        if (!ubs) return null;
-        return ubs.vaccins;
-    }
-
-    Ubs.findByVaccinId = async function (vaccinId) {
-        return await this.findAll({
-            include: [
-                {
-                    association: this.associations.vaccins,
-                    where: { id: vaccinId },
-                    through: { attributes: [] },
-                },
-                this.associations.address,
-                this.associations.contact,
-            ],
         });
     };
 

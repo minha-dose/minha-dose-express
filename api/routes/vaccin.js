@@ -1,6 +1,9 @@
 import { Router } from "express";
 const router = Router();
 
+/**
+ * 🔎 Buscar por nome (query param ?name=xxx)
+ */
 router.get("/findByName/", async (req, res) => {
     try {
         const { name } = req.query;
@@ -19,19 +22,40 @@ router.get("/findByName/", async (req, res) => {
     }
 });
 
+/**
+ * 🔎 Buscar por ID
+ */
 router.get("/:id", async (req, res) => {
-    const vaccin = await req.context.models.Vaccin.findById(req.params.id);
-    if (!vaccin) return res.status(404).send({ message: "Vaccin not found." });
-    return res.send(vaccin);
+    try {
+        const vaccin = await req.context.models.Vaccin.findById(req.params.id);
+        if (!vaccin) return res.status(404).send({ message: "Vaccin not found." });
+        return res.send(vaccin);
+    } catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
 });
 
+/**
+ * 📋 Buscar todos
+ */
 router.get("/", async (req, res) => {
-    const vaccins = await req.context.models.Vaccin.findAllVaccins();
-    return res.send(vaccins);
+    try {
+        const vaccins = await req.context.models.Vaccin.findAllVaccins();
+        return res.send(vaccins);
+    } catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
 });
 
+/**
+ * ➕ Criar vacina global (somente name esperado)
+ */
 router.post("/", async (req, res) => {
     try {
+        if (!req.body.name) {
+            return res.status(400).send({ error: "Field 'name' is required." });
+        }
+
         const vaccin = await req.context.models.Vaccin.createVaccin(req.body);
         return res.status(201).send(vaccin);
     } catch (error) {
@@ -39,11 +63,14 @@ router.post("/", async (req, res) => {
     }
 });
 
-
+/**
+ * ✏ Atualizar parcialmente (nome)
+ */
 router.put("/:id", async (req, res) => {
     try {
         const vaccin = await req.context.models.Vaccin.findById(req.params.id);
         if (!vaccin) return res.status(404).send({ message: "Vaccin not found." });
+
         await vaccin.update(req.body);
         return res.send(vaccin);
     } catch (error) {
@@ -51,10 +78,14 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+/**
+ * ❌ Deletar
+ */
 router.delete("/:id", async (req, res) => {
     try {
         const vaccin = await req.context.models.Vaccin.findById(req.params.id);
         if (!vaccin) return res.status(404).send({ message: "Vaccin not found." });
+
         await vaccin.destroy();
         return res.send({ message: "Vaccin deleted." });
     } catch (error) {

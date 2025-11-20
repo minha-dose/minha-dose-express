@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
  
 import getUserModel from "./user";
 import getContactModel from "./contact";
@@ -24,16 +24,16 @@ const sequelize = new Sequelize(process.env.DB_URL, {
 })
  
 const models = {
-    User: getUserModel(sequelize, Sequelize),
-    Ubs: getUbsModel(sequelize, Sequelize),
-    Address: getAddressModel(sequelize, Sequelize),
-    Contact: getContactModel(sequelize, Sequelize),
-    Vaccin: getVaccinModel(sequelize, Sequelize),
-    VaccinCard: getVaccinCardModel(sequelize, Sequelize),
-    UbsVaccin: getUbsVaccinModel(sequelize, Sequelize),
-    CardVaccin: getCardVaccinModel(sequelize, Sequelize),
-    Appointment: getAppointmentModel(sequelize, Sequelize),
-    PasswordReset: getPasswordResetModel(sequelize, Sequelize),
+    User: getUserModel(sequelize, { DataTypes }),
+    Ubs: getUbsModel(sequelize, { DataTypes }),
+    Address: getAddressModel(sequelize, { DataTypes }),
+    Contact: getContactModel(sequelize, { DataTypes }),
+    Vaccin: getVaccinModel(sequelize, { DataTypes }),
+    VaccinCard: getVaccinCardModel(sequelize, { DataTypes }),
+    UbsVaccin: getUbsVaccinModel(sequelize, { DataTypes }),
+    CardVaccin: getCardVaccinModel(sequelize, { DataTypes }),
+    Appointment: getAppointmentModel(sequelize, { DataTypes }),
+    PasswordReset: getPasswordResetModel(sequelize, { DataTypes }),
 }
  
 Object.keys(models).forEach((key) => {

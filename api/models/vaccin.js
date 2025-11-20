@@ -11,68 +11,31 @@ const getVaccinModel = (sequelize, { DataTypes }) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        manufacturer: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        batch: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        expiration: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
     });
 
     Vaccin.associate = (models) => {
-        Vaccin.belongsToMany(models.Ubs, {
-            through: models.UbsVaccin,
+        Vaccin.hasMany(models.UbsVaccin, {
             foreignKey: "vaccinId",
-            otherKey: "ubsId",
-            as: "ubs",
-        });
-        Vaccin.belongsToMany(models.VaccinCard, {
-            through: models.CardVaccin,
-            foreignKey: "vaccinId",
-            otherKey: "vaccinCardId",
-            as: "vaccinCards",
-        });
-
-        Vaccin.hasMany(models.Appointment, {
-            foreignKey: "vaccinId",
+            as: "stocks",
             onDelete: "CASCADE"
         })
-    };
+    }
 
     Vaccin.findById = async function (id) {
-        return await this.findByPk(id, {
-            include: [this.associations.ubs]
-        });
+        return await Vaccin.findByPk(id);
     }
 
     Vaccin.findAllVaccins = async function () {
-        return await this.findAll({
-           include: [this.associations.ubs]
-        });
+        return await Vaccin.findAll();
     }
 
     Vaccin.createVaccin = async function (data) {
-        const { ubsIds, ...vaccinData } = data;
-
-        const vaccin = await this.create(vaccinData);
-
-        if (ubsIds && Array.isArray(ubsIds)) {
-            await vaccin.addUbs(ubsIds);
-        }
-
-        return vaccin;
+        return await this.create(data);
     };
 
     Vaccin.findVaccinByName = async function (name) {
         return await this.findOne({
-           where: where(fn("LOWER", col("name")), fn("LOWER", name)),
-            include: [this.associations.ubs],
+           where: where(fn("LOWER", col("name")), fn("LOWER", name))
         });
     };
 

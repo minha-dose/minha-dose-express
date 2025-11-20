@@ -66,10 +66,13 @@ router.put("/:ubsId", async (req, res) => {
     try {
         const updateUbs = await req.context.models.Ubs.updateUbs(
             req.params.ubsId,
-            req.body
+            req.body,
+            req.context.models
         );
+
         if (!updateUbs) return res.status(404).json({ message: "Ubs not found." });
         return res.json(updateUbs);
+
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
