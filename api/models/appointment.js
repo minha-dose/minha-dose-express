@@ -26,6 +26,7 @@ const getAppointmentModel = (sequelize, { DataTypes }) => {
         Appointment.belongsTo(models.User, { foreignKey: "userId" });
         Appointment.belongsTo(models.Ubs, { foreignKey: "ubsId" });
         Appointment.belongsTo(models.Vaccin, { foreignKey: "vaccinId" });
+        Appointment.belongsTo(models.UbsVaccin, { foreignKey: "ubsVaccinId" });
     };
 
     const validateAppointmentDate = (date) => {
@@ -110,6 +111,7 @@ const getAppointmentModel = (sequelize, { DataTypes }) => {
                 "userId",
                 "ubsId",
                 "vaccinId",
+                "ubsVaccinId",
                 "date",
                 "status",
             ]
