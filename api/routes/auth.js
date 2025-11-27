@@ -21,12 +21,6 @@ router.post("/login", async (req, res) => {
             `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${recaptchaToken}`
         );
 
-        const data = verifyCaptcha.data;
-
-        if (!data.success || typeof data.score !== "number" || data.score < 0.5) {
-            console.log("Erro no captcha.")
-            return res.status(400).json({ error: "Falha no reCAPTCHA" });
-        }
 
 
         const user = await req.context.models.User.findUserByEmail(email);
